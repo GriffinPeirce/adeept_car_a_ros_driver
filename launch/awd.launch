@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="adeept_awd_ros_driver" type="driver.py" name="adeept_driver" output="screen"/>
+    <include file="$(find raspicam_node)/launch/camerav1_1280x720.launch" />
+</launch>
