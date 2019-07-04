@@ -23,8 +23,6 @@ class AdeeptAWDRos():
 		self._wheel_radius = 0.070
 		self._left_motor_dir = 1
 		self._right_motor_dir = 0
-		self._lv = 0
-		self._rv = 0
 		self._line_pin_right = 35
 		self._line_pin_middle = 36
 		self._line_pin_left = 38
@@ -75,36 +73,24 @@ class AdeeptAWDRos():
 		# Disable both motors
 		if self._cmd_lin_vel == 0 and self._cmd_ang_vel == 0:
 			move.motorStop()
-			self._lv = 0
-			self._rv = 0
-		elif self._cmd_lin_vel == 0:
-			# CCW Rotation
-			if self._cmd_ang_vel > 0:
-				self._left_motor_dir = 0
-				self._right_motor_dir = 0
-			# CW Rotation
-			elif self._cmd_ang_vel < 0:
-				self._left_motor_dir = 1
-				self._right_motor_dir = 1
-			# Scale (0,1.0) to (0,100)
-			self._lv = abs(self._cmd_ang_vel) * 100
 		# Forward driving
 		elif self._cmd_lin_vel > 0:
 			self._left_motor_dir = 1
 			self._right_motor_dir = 0
-			self._lv = abs(self._cmd_lin_vel) * 100
 		# Reverse driving
 		elif self._cmd_lin_vel < 0:
 			self._left_motor_dir = 0
 			self._right_motor_dir = 1
-			self._lv =  abs(self._cmd_lin_vel) * 100
-		if self._lv > 100:
-			self._lv = 100
-		elif self._lv < 0:
-			self._lv = 0
-		self._rv = self._lv
-		move.motor_left(1,self._left_motor_dir,self._lv)
-		move.motor_right(1,self._right_motor_dir,self._rv)
+		# CCW Rotation
+		elif self._cmd_ang_vel > 0:
+			self._left_motor_dir = 0
+			self._right_motor_dir = 0
+		# CW Rotation
+		elif self._cmd_ang_vel < 0:
+			self._left_motor_dir = 1
+			self._right_motor_dir = 1
+		move.motor_left(1,self._left_motor_dir,100)
+		move.motor_right(1,self._right_motor_dir,100)
 
 	def run(self):
 		rospy.init_node('adeept_awd_driver')
