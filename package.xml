@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>adeept_awd_ros_driver</name>
+  <name>adeept_awr_ros_driver</name>
   <version>0.0.0</version>
-  <description>The adeept_awd_driver package</description>
+  <description>The adeept_awr_driver package</description>
 
   <maintainer email="griffin.peirce@alumni.ubc.ca">Griffin</maintainer>
 
