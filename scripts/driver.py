@@ -9,9 +9,9 @@ import ultra
 from std_msgs.msg import String, Bool, Header
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Range
-from adeept_awd_ros_driver.msg import ArrayIR
+from adeept_awr_ros_driver.msg import ArrayIR
 
-class AdeeptAWDRos():
+class AdeeptAWRRos():
 
 	def __init__(self):
 		self._lin_vel = 0
@@ -73,27 +73,28 @@ class AdeeptAWDRos():
 		# Disable both motors
 		if self._cmd_lin_vel == 0 and self._cmd_ang_vel == 0:
 			move.motorStop()
-		# Forward driving
-		elif self._cmd_lin_vel > 0:
-			self._left_motor_dir = 1
-			self._right_motor_dir = 0
-		# Reverse driving
-		elif self._cmd_lin_vel < 0:
-			self._left_motor_dir = 0
-			self._right_motor_dir = 1
-		# CCW Rotation
-		elif self._cmd_ang_vel > 0:
-			self._left_motor_dir = 0
-			self._right_motor_dir = 0
-		# CW Rotation
-		elif self._cmd_ang_vel < 0:
-			self._left_motor_dir = 1
-			self._right_motor_dir = 1
-		move.motor_left(1,self._left_motor_dir,100)
-		move.motor_right(1,self._right_motor_dir,100)
+		else:
+			# Forward driving
+			if self._cmd_lin_vel > 0:
+				self._left_motor_dir = 1
+				self._right_motor_dir = 0
+			# Reverse driving
+			elif self._cmd_lin_vel < 0:
+				self._left_motor_dir = 0
+				self._right_motor_dir = 1
+			# CCW Rotation
+			elif self._cmd_ang_vel < 0:
+				self._left_motor_dir = 0
+				self._right_motor_dir = 0
+			# CW Rotation
+			elif self._cmd_ang_vel > 0:
+				self._left_motor_dir = 1
+				self._right_motor_dir = 1
+			move.motor_left(1,self._left_motor_dir,100)
+			move.motor_right(1,self._right_motor_dir,100)
 
 	def run(self):
-		rospy.init_node('adeept_awd_driver')
+		rospy.init_node('adeept_awr_driver')
 		rate = rospy.Rate(10)
 		while not rospy.is_shutdown():
 			self._publish_sonar()
@@ -103,7 +104,7 @@ class AdeeptAWDRos():
 
 if __name__ == '__main__':
     try:
-        awd = AdeeptAWDRos()
-        awd.run()
+        awr = AdeeptAWRRos()
+        awr.run()
     except rospy.ROSInterruptException as e:
         sys.exit('Connection Error: {}'.format(e))

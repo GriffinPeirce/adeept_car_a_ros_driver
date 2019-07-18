@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(adeept_awd_ros_driver)
+project(adeept_awr_ros_driver)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -121,7 +121,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/adeept_awd_driver.cpp
+#   src/${PROJECT_NAME}/adeept_awr_driver.cpp
 # )
 
 ## Add cmake target dependencies of the library
