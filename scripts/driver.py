@@ -57,12 +57,12 @@ class AdeeptCarRos():
 		else:
 			# Forward driving
 			if self._cmd_lin_vel > 0:
-				self._left_motor_dir = 1
-				self._right_motor_dir = 1
-			# Reverse driving
-			elif self._cmd_lin_vel < 0:
 				self._left_motor_dir = 0
 				self._right_motor_dir = 0
+			# Reverse driving
+			elif self._cmd_lin_vel < 0:
+				self._left_motor_dir = 1
+				self._right_motor_dir = 1
 			# CCW Rotation
 			elif self._cmd_ang_vel < 0:
 				self._left_motor_dir = 1
